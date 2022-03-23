@@ -3,17 +3,17 @@ Terraform module which creates Hybrid Backup Recovery (HBR) for ECS on Alibaba C
 terraform-alicloud-hbr-ecs
 =====================================================================
 
-English | [简体中文](README-CN.md)
+[English](README.md) | 简体中文
 
-This module is used to create Hybrid Backup Recovery (HBR) for ECS on Alibaba Cloud.
+本 Module 用于基于HBR自动化构建ECS备份和恢复计划，包含：`HBR`。
 
-These types of resources are supported:
+本 Module 支持创建以下资源:
 
 * [alicloud_hbr_ecs_backup_client](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/hbr_ecs_backup_client)
 * [alicloud_hbr_ecs_backup_plan](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/hbr_ecs_backup_plan)
 * [alicloud_hbr_restore_job](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/hbr_restore_job)
 
-## Usage
+## 用法
 
 ```hcl
 module "example" {
@@ -42,16 +42,16 @@ module "example" {
 }
 ```
 
-## Examples
+## 示例
 
-* [complete example](https://github.com/terraform-alicloud-modules/terraform-alicloud-hbr-ecs/tree/main/examples/complete)
+* [HBR 完整示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-hbr-ecs/tree/main/examples/complete)
 
-## Notes
+## 注意事项
 
-* This module using AccessKey and SecretKey are from `profile` and `shared_credentials_file`. If you have not set them
-  yet, please install [aliyun-cli](https://github.com/aliyun/aliyun-cli#installation) and configure it.
+* 本 Module 使用的 AccessKey 和 SecretKey 可以直接从 `profile` 和 `shared_credentials_file`
+  中获取。如果未设置，可通过下载安装 [aliyun-cli](https://github.com/aliyun/aliyun-cli#installation) 后进行配置.
 
-## Requirements
+## 要求
 
 | Name | Version |
 |------|---------|
@@ -64,24 +64,23 @@ module "example" {
 |------|---------|
 | <a name="provider_alicloud"></a> [alicloud](#provider\_alicloud) | > = 1.133.0 |
 
-## Submit Issues
+## 提交问题
 
-If you have any problems when using this module, please opening
-a [provider issue](https://github.com/aliyun/terraform-provider-alicloud/issues/new) and let us know.
+如果在使用该 Terraform Module
+的过程中有任何问题，可以直接创建一个 [Provider Issue](https://github.com/aliyun/terraform-provider-alicloud/issues/new)，我们将根据问题描述提供解决方案。
 
-**Note:** There does not recommend opening an issue on this repo.
+**注意:** 不建议在该 Module 仓库中直接提交 Issue。
 
-## Authors
+## 作者
 
 Created and maintained by Alibaba Cloud Terraform Team(terraform@alibabacloud.com).
 
-## License
+## 许可
 
 MIT Licensed. See LICENSE for full details.
 
-## Reference
+## 参考
 
 * [Terraform-Provider-Alicloud Github](https://github.com/aliyun/terraform-provider-alicloud)
 * [Terraform-Provider-Alicloud Release](https://releases.hashicorp.com/terraform-provider-alicloud/)
 * [Terraform-Provider-Alicloud Docs](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs)
-
