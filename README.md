@@ -3,7 +3,7 @@ Terraform module which creates Hybrid Backup Recovery (HBR) for ECS on Alibaba C
 terraform-alicloud-hbr-ecs
 =====================================================================
 
-English | [简体中文](README-CN.md)
+English | [简体中文](https://github.com/terraform-alicloud-modules/terraform-alicloud-hbr-ecs/blob/main/README-CN.md)
 
 This module is used to create Hybrid Backup Recovery (HBR) for ECS on Alibaba Cloud.
 
@@ -18,8 +18,9 @@ These types of resources are supported:
 ```hcl
 module "example" {
   source                   = "terraform-alicloud-modules/hbr-ecs/alicloud"
-  instance_id              = "i-abc12345"
+  #alicloud_hbr_ecs_backup_client
   create_ecs_backup_client = true
+  instance_id              = "i-abc12345"
   use_https                = false
   data_network_type        = "VPC"
   max_cpu_core             = 2
@@ -29,6 +30,8 @@ module "example" {
   proxy_port               = 80
   proxy_user               = "user"
   proxy_password           = "password"
+  #alicloud_hbr_ecs_backup_plan
+  create_backup_plan       = true
   name                     = "tf-test-hbr-nas"
   schedule                 = "I|1646827682|PT2H"
   backup_type              = "COMPLETE"
@@ -38,6 +41,7 @@ module "example" {
   speed_limit              = "0:24:5120"
   exclude                  = "[\"/home/exclude\"]"
   include                  = "[\"/home/include\"]"
+  #alicloud_hbr_restore_job
   create_restore_job       = false
 }
 ```
