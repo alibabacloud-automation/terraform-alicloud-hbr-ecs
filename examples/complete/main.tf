@@ -34,8 +34,13 @@ resource "alicloud_instance" "default" {
   vswitch_id        = module.vpc.this_vswitch_ids[0]
 }
 
+resource "random_integer" "this" {
+  min = 10000
+  max = 99999
+}
+
 resource "alicloud_hbr_vault" "default" {
-  vault_name = "tf-test-hbr-ecs"
+  vault_name = "tf-test-hbr-ecs-${random_integer.this.result}"
 }
 
 data "alicloud_hbr_snapshots" "nas_snapshots" {

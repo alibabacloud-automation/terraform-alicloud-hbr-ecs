@@ -14,5 +14,3 @@ retention   = 2
 schedule    = "I|1646917983|PT2H"
 path        = []
 speed_limit = "0:24:5130"
-exclude     = ""
-include     = ""
