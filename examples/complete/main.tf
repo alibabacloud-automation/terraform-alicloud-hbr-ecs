@@ -2,7 +2,10 @@ data "alicloud_zones" "default" {
 }
 
 data "alicloud_instance_types" "default" {
-  availability_zone = data.alicloud_zones.default.zones.0.id
+  availability_zone    = data.alicloud_zones.default.zones[0].id
+  cpu_core_count       = 2
+  memory_size          = 8
+  instance_type_family = "ecs.g6"
 }
 
 data "alicloud_images" "default" {
@@ -10,26 +13,30 @@ data "alicloud_images" "default" {
 }
 
 module "vpc" {
-  source             = "alibaba/vpc/alicloud"
+  source  = "alibaba/vpc/alicloud"
+  version = "~> 1.11"
+
   create             = true
   vpc_name           = "tf-test-hbr-ecs"
   vpc_cidr           = "172.16.0.0/16"
   vswitch_name       = "tf-test-hbr-ecs"
   vswitch_cidrs      = ["172.16.0.0/21"]
-  availability_zones = [data.alicloud_zones.default.zones.0.id]
+  availability_zones = [data.alicloud_zones.default.zones[0].id]
 }
 
 module "security_group" {
-  source = "alibaba/security-group/alicloud"
+  source  = "alibaba/security-group/alicloud"
+  version = "~> 2.4"
+
   vpc_id = module.vpc.this_vpc_id
 }
 
 resource "alicloud_instance" "default" {
 
-  availability_zone = data.alicloud_zones.default.zones.0.id
+  availability_zone = data.alicloud_zones.default.zones[0].id
   security_groups   = [module.security_group.this_security_group_id]
-  instance_type     = data.alicloud_instance_types.default.instance_types.0.id
-  image_id          = data.alicloud_images.default.images.0.id
+  instance_type     = data.alicloud_instance_types.default.instance_types[0].id
+  image_id          = data.alicloud_images.default.images[0].id
   instance_name     = "tf-test-hbr-ecs"
   vswitch_id        = module.vpc.this_vswitch_ids[0]
 }
@@ -79,8 +86,8 @@ module "example" {
 
   #alicloud_hbr_restore_job
   create_restore_job = false
-  snapshot_hash      = length(data.alicloud_hbr_snapshots.nas_snapshots.snapshots) > 0 ? data.alicloud_hbr_snapshots.nas_snapshots.snapshots.0.snapshot_hash : var.snapshot_hash
-  snapshot_id        = length(data.alicloud_hbr_snapshots.nas_snapshots.snapshots) > 0 ? data.alicloud_hbr_snapshots.nas_snapshots.snapshots.0.snapshot_id : var.snapshot_id
+  snapshot_hash      = length(data.alicloud_hbr_snapshots.nas_snapshots.snapshots) > 0 ? data.alicloud_hbr_snapshots.nas_snapshots.snapshots[0].snapshot_hash : var.snapshot_hash
+  snapshot_id        = length(data.alicloud_hbr_snapshots.nas_snapshots.snapshots) > 0 ? data.alicloud_hbr_snapshots.nas_snapshots.snapshots[0].snapshot_id : var.snapshot_id
   target_instance_id = alicloud_instance.default.id
   target_path        = var.target_path
 }
