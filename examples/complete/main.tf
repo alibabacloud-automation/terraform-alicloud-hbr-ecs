@@ -1,3 +1,7 @@
+provider "alicloud" {
+  region = "ap-southeast-5"
+}
+
 data "alicloud_zones" "default" {
 }
 
@@ -5,11 +9,13 @@ data "alicloud_instance_types" "default" {
   availability_zone    = data.alicloud_zones.default.zones[0].id
   cpu_core_count       = 2
   memory_size          = 8
-  instance_type_family = "ecs.g6"
+  instance_type_family = "ecs.g9i"
 }
 
 data "alicloud_images" "default" {
-  name_regex = "^centos_6"
+  owners        = "system"
+  most_recent   = true
+  instance_type = data.alicloud_instance_types.default.instance_types[0].id
 }
 
 module "vpc" {
@@ -33,12 +39,13 @@ module "security_group" {
 
 resource "alicloud_instance" "default" {
 
-  availability_zone = data.alicloud_zones.default.zones[0].id
-  security_groups   = [module.security_group.this_security_group_id]
-  instance_type     = data.alicloud_instance_types.default.instance_types[0].id
-  image_id          = data.alicloud_images.default.images[0].id
-  instance_name     = "tf-test-hbr-ecs"
-  vswitch_id        = module.vpc.this_vswitch_ids[0]
+  availability_zone    = data.alicloud_zones.default.zones[0].id
+  security_groups      = [module.security_group.this_security_group_id]
+  instance_type        = data.alicloud_instance_types.default.instance_types[0].id
+  image_id             = data.alicloud_images.default.images[0].id
+  instance_name        = "tf-test-hbr-ecs"
+  vswitch_id           = module.vpc.this_vswitch_ids[0]
+  system_disk_category = "cloud_essd"
 }
 
 resource "random_integer" "this" {
