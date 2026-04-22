@@ -1,3 +1,14 @@
+## [2.0.0](https://github.com/alibabacloud-automation/terraform-alicloud-hbr-ecs/compare/v1.0.2...v2.0.0) (2026-04-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* add provider version constraint for aliyun/alicloud
+
+### Features
+
+* add provider version constraint for aliyun/alicloud ([634329f](https://github.com/alibabacloud-automation/terraform-alicloud-hbr-ecs/commit/634329f52c50da5955f2c72ad34d032e757dcefc))
+
 ## [1.0.2](https://github.com/alibabacloud-automation/terraform-alicloud-hbr-ecs/compare/v1.0.1...v1.0.2) (2025-10-16)
 
 
